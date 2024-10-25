@@ -1,0 +1,185 @@
+\documentclass[12pt]{article}
+
+\usepackage{caption}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{mathtext} 				
+\usepackage[T2A]{fontenc}			
+\usepackage{pythonhighlight}
+\usepackage[utf8]{inputenc}
+
+
+\author{M3113 Мажейкин Александр Алексеевич \and Проверяющий: Жуйков Артём Сергеевич}
+\title{Работа с LaTeX. Лабораторная работа No 3}
+\date{}
+
+\begin{document}    
+
+\maketitle
+
+\newpage
+\tableofcontents
+
+\newpage
+
+\section{Program Description}
+This Python program calculates and displays the perimeter or area of geometric figures, specifically circles and squares. It dynamically imports and calls functions to achieve this functionality.
+
+\newpage
+
+\section{Description of program files}
+
+\subsection{Сalculate}
+\href{https://github.com/niumandzi/geometric_lib/blob/docs/calculate.py}{сalculate.py}.
+
+
+\begin{python}
+import circle
+import square
+
+
+figs = ['circle', 'square']
+funcs = ['perimeter', 'area']
+sizes = {}
+
+def calc(fig, func, size):
+	assert fig in figs
+	assert func in funcs
+
+	result = eval(f'{fig}.{func}(*{size})')
+	print(f'{func} of {fig} is {result}')
+
+if __name__ == "__main__":
+	func = ''
+	fig = ''
+	size = list()
+    
+	while fig not in figs:
+		fig = input(f"Enter figure name, avaliable are {figs}:\n")
+	
+	while func not in funcs:
+		func = input(f"Enter function name, avaliable are {funcs}:\n")
+	
+	while len(size) != sizes.get(f"{func}-{fig}", 1):
+		size = list(map(int, input("Input figure sizes separated by space, 1 for circle and square\n").split(' ')))
+	
+	calc(fig, func, size)
+\end{python}
+
+\newpage
+
+\subsubsection{Logic}
+\textbf{Variables:}
+\begin{itemize}
+    \item \texttt{figs}: A list containing the names of the supported figures, \texttt{'circle'} and \texttt{'square'}.
+    \item \texttt{funcs}: A list containing the names of the supported functions, \texttt{'perimeter'} and \texttt{'area'}.
+    \item \texttt{sizes}: A dictionary intended to store the required number of size parameters for each figure-function combination, though it is not populated in the provided code.
+\end{itemize}
+
+\textbf{Function \texttt{calc(fig, func, size)}:} This function performs the following tasks:
+\begin{itemize}
+    \item Uses \texttt{assert} statements to ensure that the provided figure and function names are valid.
+    \item Uses \texttt{eval} to dynamically call the appropriate function from the imported modules based on the figure and function names, passing the size as an argument.
+    \item Prints the result of the calculation.
+\end{itemize}
+
+\textbf{Main Execution Block:} This section of the code is executed when the script is run directly.
+\begin{itemize}
+    \item Initializes \texttt{func}, \texttt{fig}, and \texttt{size} variables.
+    \item Prompts the user to input a valid figure name until a correct one is provided.
+    \item Prompts the user to input a valid function name until a correct one is provided.
+    \item Prompts the user to input the size(s) of the figure, ensuring the correct number of parameters is entered based on the figure and function.
+    \item Calls the \texttt{calc} function with the user-provided inputs.
+\end{itemize}
+
+
+\newpage
+
+\subsection{Circle}
+\href{https://github.com/niumandzi/geometric_lib/blob/docs/circle.py}{circle.py}.
+
+\subsubsection{Code}
+
+\begin{python}
+import math
+
+def area(r):
+    return math.pi * r * r
+
+def perimeter(r):
+    return 2 * math.pi * r
+\end{python}
+
+\subsubsection{Logic}
+
+The function \texttt{area(r)} calculates the area of a circle. The area (S) is determined using the square of the radius circle and the constant \(\pi\). \\
+\\
+The function \texttt{perimeter(r)} calculates the perimeter of a circle. The perimeter (P) is determined using the double radius and the constant \(\pi\). (r).
+
+\subsubsection{Formulas}
+
+The formula to find the area (S): 
+\[S = r^2 * \pi\] \\
+The formula to find the perimeter (P):
+\[P = 2r * \pi\]
+
+\newpage
+
+\subsection{Square}
+\href{https://github.com/niumandzi/geometric_lib/blob/docs/square.py}{square.py}.
+
+\subsubsection{Code}
+
+\begin{python}
+def area(a):
+    return a * a
+
+def perimeter(a):
+    return 4 * a
+\end{python}
+
+\subsubsection{Logic}
+
+The function \texttt{area(a)} calculates the area of a square. The area (A) is determined by squaring the length of one of its sides (a). \\
+\\
+The function \texttt{perimeter(a)} calculates the perimeter of a square. The perimeter (P) is the total length around the square, which is four times the length of one of its sides (a). 
+
+\subsubsection{Formulas}
+
+The formula to find the area (S):
+\[S = a \times a = a^2\] \\
+The formula to find the perimeter (P):
+\[P = 4 \times a\]
+
+\newpage
+
+\subsection{Triangle}
+\href{https://github.com/niumandzi/geometric_lib/blob/docs/triangle.py}{trianle.py}.
+\subsubsection{Code}
+\begin{python}
+def area(a, b, c):
+    s = (a + b + c) / 2
+    return (s * (s - a) * (s - b) * (s - c)) ** 0.5
+
+def perimeter(a, b, c):
+    return a + b + c
+\end{python}
+
+\subsubsection{Logic}
+
+The function \texttt{area(a, b, c)} calculates the area of a triangle using Heron's formula. The area (S) is determined based on the lengths of its sides (a), (b), and (c). First, the semiperimeter (s) is calculated as half the sum of the side lengths. \\
+\\
+The function \texttt{perimeter(a, b, c)} calculates the perimeter of a triangle. The perimeter (P) is the sum of the lengths of its sides (a), (b), and (c). 
+\subsubsection{Formulas}
+
+Calculate the semiperimeter (s):
+\[s = \frac{a + b + c}{2}\] \\
+Use Heron's formula to find the area (S):
+\[S = \sqrt{s \cdot (s - a) \cdot (s - b) \cdot (s - c)}\] \\
+The formula to find the perimeter (P):
+\[P = a + b + c\]
+
+\section{Link}
+\href{https://github.com/niumandzi/geometric_lib/blob/latex/docs/documentation.tex}{LaTeX code}.
+
+\end{document}
