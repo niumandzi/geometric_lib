@@ -1,5 +1,6 @@
 import math
 
+
 def area(r):
     """
     Вычисляет площадь круга.
@@ -15,6 +16,7 @@ def area(r):
     """
     return math.pi * r * r
 
+
 def perimeter(r):
     """
     Вычисляет длину окружности.
@@ -29,4 +31,3 @@ def perimeter(r):
     perimeter(5)  # Возвращает 31.41592653589793
     """
     return 2 * math.pi * r
-
