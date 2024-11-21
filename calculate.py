@@ -34,7 +34,7 @@ def calc(fig, func, size):
     """
     assert fig in figs, f"Unknown figure: {fig}"
     assert func in figs[fig], f"Unknown function: {func}"
-    assert all(s > 0 for s in size), "All size parameters must be positive"
+    assert all(s > 0 for s in size), "Size parameters must be positive"
 
     result = figs[fig][func](*size)
     return result
